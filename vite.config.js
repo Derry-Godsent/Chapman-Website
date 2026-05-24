@@ -9,17 +9,10 @@ export default defineConfig({
     terserOptions: {
       compress: { drop_console: true, drop_debugger: true },
     },
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ["react", "react-dom", "react-router-dom"],
-          icons: ["lucide-react"],
-          framer: ["framer-motion"],
-        },
-      },
-    },
+    sourcemap: false, // Reduce build size
+    // Code splitting still works automatically without custom config
   },
   css: {
-    devSourcemap: false, // Smaller dev builds
+    devSourcemap: false,
   },
 });
