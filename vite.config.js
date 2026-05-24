@@ -10,7 +10,7 @@ export default defineConfig({
       compress: { drop_console: true, drop_debugger: true },
     },
     sourcemap: false, // Reduce build size
-    // Code splitting still works automatically without custom config
+
   },
   css: {
     devSourcemap: false,
