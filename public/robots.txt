@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://chapmanprestige.com/sitemap.xml

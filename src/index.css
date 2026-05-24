@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+/* ══════════════════════════════════════════
+   Global resets & base — Chapman Prestige
+   All design tokens live in Layout.jsx :root
+   This file stays minimal on purpose.
+══════════════════════════════════════════ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #09090b;
+  color: #ffffff;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Remove default button styles */
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+  outline: none;
+  font: inherit;
+}
+
+/* Selection highlight */
+::selection {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar        { width: 4px; }
+::-webkit-scrollbar-track  { background: #09090b; }
+::-webkit-scrollbar-thumb  { background: rgba(255,255,255,.14); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,.28); }
+
+/* Focus ring — keyboard only */
+:focus-visible {
+  outline: 2px solid rgba(255,255,255,.4);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ✅ ADDED: Accessibility — Respect OS reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
