@@ -1,11 +1,6 @@
 {
   "framework": "vite",
-  "buildCommand": "npm ci && npm run build",
+  "buildCommand": "npm ci && ./node_modules/.bin/vite build",
   "installCommand": "npm ci",
-  "outputDirectory": "dist",
-  "build": {
-    "env": {
-      "NODE_VERSION": "20"
-    }
-  }
+  "outputDirectory": "dist"
 }
