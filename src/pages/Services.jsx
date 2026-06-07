@@ -17,25 +17,37 @@ const CSS = `
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
 
 :root {
-  --cream:      #FAF6EE;
-  --cocoa:      #18120C;
-  --cocoa2:     #231A12;
-  --cocoa3:     #2E2218;
+  --cream:        #FFFFFF;
+  --bg-soft:      #F7FDF4;
+  --bg-section:   #F0FDF4;
 
-  --green:      #059669;
-  --green-hi:   #10B981;
-  --green-deep: #047857;
-  --gold:       #D97706;
-  --gold-hi:    #F59E0B;
-  --gold-low:   #92400E;
+  --green:        #65A30D;
+  --green-hi:     #84CC16;
+  --green-deep:   #4D7C0F;
+  --green-tint:   rgba(101,163,13,0.08);
+  --green-tint2:  rgba(101,163,13,0.15);
 
-  --ink:        #1C1208;
-  --ink-70:     #4B3E30;
-  --ink-45:     #7A6A59;
-  --ink-25:     #A89B8C;
+  --orange:       #F97316;
+  --orange-hi:    #FB923C;
+  --orange-deep:  #EA580C;
 
-  --line:       rgba(28,18,8,0.10);
-  --line2:      rgba(28,18,8,0.18);
+  --sky:          #0EA5E9;
+  --sky-deep:     #0369A1;
+
+  --amber:        #D97706;
+  --amber-hi:     #F59E0B;
+  --amber-deep:   #92400E;
+
+  --ink:          #111827;
+  --ink-70:       #374151;
+  --ink-45:       #6B7280;
+  --ink-25:       #9CA3AF;
+
+  --line:         #E5E7EB;
+  --line2:        #D1D5DB;
+  --shadow-sm:    0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.04);
+  --shadow-md:    0 4px 16px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.04);
+  --shadow-lg:    0 12px 40px rgba(0,0,0,.10), 0 4px 12px rgba(0,0,0,.05);
 
   --fh: 'Outfit', system-ui, sans-serif;
   --fb: 'DM Sans', system-ui, sans-serif;
@@ -71,7 +83,7 @@ const CSS = `
   display:inline-flex; align-items:center; gap:10px;
   font-family:var(--fb); font-size:10.5px; font-weight:600;
   letter-spacing:.22em; text-transform:uppercase;
-  color:var(--gold); margin-bottom:18px;
+  color:var(--orange); margin-bottom:18px;
 }
 .sv-eye::before {
   content:''; display:block; width:18px; height:1.5px;
@@ -84,7 +96,7 @@ const CSS = `
   font-size:clamp(46px,6.5vw,84px);
   font-weight:800; line-height:.97;
   letter-spacing:-.04em;
-  background:linear-gradient(140deg,#fff 30%,var(--gold-hi) 100%);
+  background:linear-gradient(140deg,#fff 30%,var(--orange-hi) 100%);
   -webkit-background-clip:text; -webkit-text-fill-color:transparent;
   background-clip:text;
 }
@@ -110,22 +122,22 @@ const CSS = `
   color:#fff; font-family:var(--fh);
   font-size:13.5px; font-weight:700; letter-spacing:.01em;
   padding:13px 28px; border-radius:100px;
-  box-shadow:0 4px 16px rgba(5,150,105,.28);
+  box-shadow:0 4px 16px rgba(101,163,13,.30);
   transition:transform .25s var(--ease), box-shadow .25s, filter .25s;
 }
-.sv-btn-primary:hover { transform:translateY(-3px); box-shadow:0 10px 28px rgba(5,150,105,.4); filter:brightness(1.06); }
+.sv-btn-primary:hover { transform:translateY(-3px); box-shadow:0 10px 28px rgba(101,163,13,.42); filter:brightness(1.05); }
 .sv-btn-primary:active { transform:scale(.97); transition-duration:.1s; }
 
 .sv-btn-ghost {
   display:inline-flex; align-items:center; gap:9px;
-  border:1.5px solid rgba(255,255,255,.3);
-  color:rgba(255,255,255,.85);
+  border:1.5px solid rgba(255,255,255,.35);
+  color:rgba(255,255,255,.9);
   font-family:var(--fh); font-size:13.5px; font-weight:600;
   padding:12px 24px; border-radius:100px;
   backdrop-filter:blur(8px);
   transition:border-color .25s, color .25s, background .25s, transform .25s var(--ease);
 }
-.sv-btn-ghost:hover { border-color:rgba(255,255,255,.6); color:#fff; background:rgba(255,255,255,.1); transform:translateY(-2px); }
+.sv-btn-ghost:hover { border-color:rgba(255,255,255,.7); color:#fff; background:rgba(255,255,255,.12); transform:translateY(-2px); }
 
 /* ── Hero ── */
 .sv-hero {
@@ -133,13 +145,13 @@ const CSS = `
   display:flex; flex-direction:column; justify-content:center;
   padding:140px 44px 90px;
   position:relative; overflow:hidden;
-  border-bottom:1px solid rgba(255,255,255,.08);
+  border-bottom:1px solid var(--line);
 }
 
 /* grain overlay */
 .sv-grain {
   position:absolute; inset:-40%; width:180%; height:180%;
-  opacity:.035;
+  opacity:.025;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size:160px;
   animation:sv-grain 8s steps(1) infinite;
@@ -161,7 +173,7 @@ const CSS = `
 }
 
 /* ── Service cards ── */
-.sv-cards-section { padding:96px 0; }
+.sv-cards-section { padding:96px 0; background:var(--bg-soft); }
 
 .sv-card {
   display:grid;
@@ -171,10 +183,14 @@ const CSS = `
   border-bottom:1px solid var(--line);
   position:relative; cursor:pointer; overflow:hidden;
   transition:padding-left .4s var(--ease), background .3s;
+  background:#fff;
+  border-radius:18px;
+  margin-bottom:16px;
+  box-shadow:var(--shadow-sm);
 }
 /* left accent bar */
 .sv-card::before {
-  content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
+  content:''; position:absolute; left:0; top:0; bottom:0; width:4px;
   background:linear-gradient(to bottom, var(--green-hi), var(--green-deep));
   transform:scaleY(0); transform-origin:bottom;
   border-radius:0 2px 2px 0;
@@ -184,11 +200,11 @@ const CSS = `
 .sv-card::after {
   content:''; position:absolute;
   top:0; left:0; width:40%; height:100%;
-  background:linear-gradient(90deg,transparent,rgba(5,150,105,.035),transparent);
+  background:linear-gradient(90deg,transparent,rgba(101,163,13,.035),transparent);
   transform:translateX(-100%);
   transition:transform 0s;
 }
-.sv-card:hover { padding-left:18px; background:rgba(5,150,105,.025); }
+.sv-card:hover { padding-left:18px; background:var(--bg-section); box-shadow:var(--shadow-md); }
 .sv-card:hover::before { transform:scaleY(1); }
 .sv-card:hover::after  { transform:translateX(300%); transition:transform .6s var(--ease); }
 
@@ -196,7 +212,7 @@ const CSS = `
 .sv-num {
   font-family:var(--fh); font-size:48px; font-weight:900;
   line-height:1; letter-spacing:-.05em;
-  background:linear-gradient(135deg,var(--green),var(--gold-hi));
+  background:linear-gradient(135deg,var(--green),var(--orange-hi));
   -webkit-background-clip:text; -webkit-text-fill-color:transparent;
   background-clip:text;
   transition:transform .4s var(--ease), filter .4s;
@@ -209,8 +225,8 @@ const CSS = `
 
 .sv-card-icon {
   width:46px; height:46px; border-radius:13px;
-  background:rgba(5,150,105,.07);
-  border:1.5px solid rgba(5,150,105,.3);
+  background:var(--green-tint);
+  border:1.5px solid var(--green-tint2);
   display:flex; align-items:center; justify-content:center;
   color:var(--green); margin-bottom:16px;
   transition:background .3s, color .3s, border-color .3s, transform .4s var(--ease), box-shadow .4s;
@@ -218,7 +234,7 @@ const CSS = `
 .sv-card:hover .sv-card-icon {
   background:var(--green); color:#fff; border-color:var(--green-hi);
   transform:rotate(-5deg) scale(1.1);
-  box-shadow:0 8px 20px rgba(5,150,105,.3);
+  box-shadow:0 8px 20px rgba(101,163,13,.3);
 }
 
 .sv-card-title {
@@ -239,18 +255,18 @@ const CSS = `
   display:inline-flex; align-items:center; gap:5px;
   font-family:var(--fb); font-size:11.5px; font-weight:500;
   color:var(--green-deep);
-  background:rgba(5,150,105,.07);
-  border:1px solid rgba(5,150,105,.18);
+  background:var(--green-tint);
+  border:1px solid var(--green-tint2);
   padding:4px 10px; border-radius:100px;
   transition:background .25s, border-color .25s, color .25s;
 }
-.sv-card:hover .sv-tag { background:rgba(5,150,105,.12); border-color:rgba(5,150,105,.3); }
+.sv-card:hover .sv-tag { background:var(--green-tint2); border-color:var(--green); }
 
 /* ── Process strip ── */
 .sv-process {
-  background:var(--cocoa2);
-  border-top:1px solid rgba(255,255,255,.07);
-  border-bottom:1px solid rgba(255,255,255,.07);
+  background:#fff;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
   padding:80px 0;
 }
 .sv-process-grid {
@@ -258,19 +274,19 @@ const CSS = `
 }
 .sv-step {
   padding:32px 36px; position:relative;
-  border-right:1px solid rgba(255,255,255,.07);
+  border-right:1px solid var(--line);
   transition:background .3s;
 }
 .sv-step:last-child { border-right:none; }
-.sv-step:hover { background:rgba(255,255,255,.03); }
+.sv-step:hover { background:var(--bg-section); }
 
 .sv-step-dot {
   width:40px; height:40px; border-radius:12px;
-  background:rgba(5,150,105,.15);
-  border:1.5px solid rgba(5,150,105,.35);
+  background:var(--green-tint);
+  border:1.5px solid var(--green-tint2);
   display:flex; align-items:center; justify-content:center;
   font-family:var(--fh); font-size:14px; font-weight:800;
-  color:var(--green-hi); margin-bottom:20px;
+  color:var(--green); margin-bottom:20px;
   transition:background .3s, border-color .3s, transform .3s var(--ease);
 }
 .sv-step:hover .sv-step-dot {
@@ -281,25 +297,25 @@ const CSS = `
 .sv-step:not(:last-child)::after {
   content:'→';
   position:absolute; top:32px; right:-14px; z-index:1;
-  font-size:16px; color:rgba(255,255,255,.15);
+  font-size:16px; color:var(--ink-25);
   line-height:40px;
   transition:color .3s;
 }
-.sv-step:hover::after { color:var(--green-hi); }
+.sv-step:hover::after { color:var(--green); }
 
 .sv-step-title {
   font-family:var(--fh); font-size:15px; font-weight:700;
-  color:#fff; margin-bottom:8px; letter-spacing:-.01em;
+  color:var(--ink); margin-bottom:8px; letter-spacing:-.01em;
 }
 .sv-step-desc {
-  font-family:var(--fb); font-size:13px; font-weight:300;
-  color:rgba(255,255,255,.45); line-height:1.7;
+  font-family:var(--fb); font-size:13px; font-weight:400;
+  color:var(--ink-45); line-height:1.7;
 }
 
 /* ── Stats bar ── */
 .sv-stats {
-  background:var(--cocoa3);
-  border-bottom:1px solid rgba(255,255,255,.06);
+  background:var(--bg-section);
+  border-bottom:1px solid var(--line);
   padding:48px 0;
 }
 .sv-stats-grid {
@@ -310,35 +326,36 @@ const CSS = `
 .sv-stat-num {
   font-family:var(--fh); font-size:40px; font-weight:900;
   letter-spacing:-.04em; line-height:1;
-  background:linear-gradient(135deg,#fff,var(--gold-hi));
+  background:linear-gradient(135deg,var(--green-deep),var(--green-hi));
   -webkit-background-clip:text; -webkit-text-fill-color:transparent;
   background-clip:text;
 }
 .sv-stat-label {
-  font-family:var(--fb); font-size:12px; font-weight:400;
-  color:rgba(255,255,255,.38); margin-top:6px; letter-spacing:.04em;
+  font-family:var(--fb); font-size:12px; font-weight:500;
+  color:var(--ink-45); margin-top:6px; letter-spacing:.04em;
 }
 
 /* ── CTA strip ── */
 .sv-cta-strip {
-  background:var(--cocoa2);
-  border-top:1px solid rgba(255,255,255,.07);
+  background:linear-gradient(135deg,var(--green-deep) 0%,var(--green) 50%,var(--green-hi) 100%);
+  border:none;
   padding:96px 44px;
   text-align:center;
   position:relative; overflow:hidden;
+  box-shadow:0 20px 60px rgba(101,163,13,.30);
 }
 .sv-cta-strip::before {
   content:''; position:absolute;
   top:-100px; left:50%; transform:translateX(-50%);
   width:500px; height:500px; border-radius:50%;
-  background:radial-gradient(circle,rgba(217,119,6,.12),transparent 70%);
+  background:radial-gradient(circle,rgba(255,255,255,.10),transparent 70%);
   pointer-events:none;
 }
 .sv-cta-strip::after {
   content:''; position:absolute;
   bottom:-80px; right:10%;
   width:320px; height:320px; border-radius:50%;
-  background:radial-gradient(circle,rgba(5,150,105,.1),transparent 70%);
+  background:radial-gradient(circle,rgba(249,115,22,.25),transparent 70%);
   pointer-events:none;
 }
 .sv-cta-inner { position:relative; z-index:1; max-width:560px; margin:0 auto; }
@@ -346,7 +363,7 @@ const CSS = `
 /* ── Responsive ── */
 @media(max-width:900px){
   .sv-process-grid { grid-template-columns:repeat(2,1fr); }
-  .sv-step { border-bottom:1px solid rgba(255,255,255,.07); }
+  .sv-step { border-bottom:1px solid var(--line); }
   .sv-step:nth-child(2) { border-right:none; }
   .sv-step:nth-child(3) { border-bottom:none; }
   .sv-step:nth-child(2)::after,
@@ -361,7 +378,7 @@ const CSS = `
   .sv-card-body { padding-right:16px; }
   .sv-process { padding:60px 0; }
   .sv-process-grid { grid-template-columns:1fr; }
-  .sv-step { border-right:none; border-bottom:1px solid rgba(255,255,255,.07); }
+  .sv-step { border-right:none; border-bottom:1px solid var(--line); }
   .sv-step:last-child { border-bottom:none; }
   .sv-step::after { display:none !important; }
   .sv-cta-strip { padding:72px 22px; }
@@ -400,9 +417,9 @@ const STATS = [
 
 function StyleTag() {
   useEffect(() => {
-    if (document.getElementById("sv-css-v3")) return;
+    if (document.getElementById("sv-css-v4")) return;
     const el = document.createElement("style");
-    el.id = "sv-css-v3"; el.textContent = CSS;
+    el.id = "sv-css-v4"; el.textContent = CSS;
     document.head.prepend(el);
     return () => el.remove();
   }, []);
@@ -434,28 +451,30 @@ export default function Services() {
           <VideoCarousel videos={SERVICE_VIDEOS} duration={8000} transition="slide" showOnMobile={true} />
 
           {/* orbs */}
-          <div className="sv-orb" style={{ width:560, height:560, top:"5%",  left:"58%", background:"radial-gradient(circle,rgba(5,150,105,.2),transparent 70%)", animationDuration:"16s" }} />
-          <div className="sv-orb" style={{ width:360, height:360, top:"50%", left:"5%",  background:"radial-gradient(circle,rgba(217,119,6,.16),transparent 70%)", animationDuration:"11s", animationDelay:"5s" }} />
+          <div className="sv-orb" style={{ width:560, height:560, top:"5%",  left:"58%", background:"radial-gradient(circle,rgba(101,163,13,.28),transparent 70%)", animationDuration:"16s" }} />
+          <div className="sv-orb" style={{ width:360, height:360, top:"50%", left:"5%",  background:"radial-gradient(circle,rgba(249,115,22,.22),transparent 70%)", animationDuration:"11s", animationDelay:"5s" }} />
           <div className="sv-grain" />
 
-          {/* full overlay */}
-          <div style={{ position:"absolute", inset:0, background:"linear-gradient(to top, rgba(18,12,6,.88) 0%, rgba(18,12,6,.55) 45%, rgba(18,12,6,.32) 100%)", zIndex:1, pointerEvents:"none" }} />
+         {/* Multi-layer overlay: lighter gradient for better video visibility */}
+<div style={{ position:"absolute", inset:0, background:"linear-gradient(to top, rgba(10,15,20,.65) 0%, rgba(10,15,20,.40) 40%, rgba(10,15,20,.15) 75%, rgba(10,15,20,.05) 100%)", zIndex:1, pointerEvents:"none" }} />
+{/* Side vignettes - reduced */}
+<div style={{ position:"absolute", inset:0, background:"radial-gradient(ellipse at center, transparent 50%, rgba(10,15,20,.25) 100%)", zIndex:1, pointerEvents:"none" }} />
 
           <div className="sv-wrap" style={{ position:"relative", zIndex:2 }}>
             <div className="sv-hero-rule" />
 
-            <p className="sv-eye" style={hi(0)}>
+            <p className="sv-eye" style={{ color:"var(--orange-hi)", ...hi(0) }}>
               Our Services · {BUSINESS.shortName}
             </p>
 
             <h1 className="sv-h1" style={{ marginBottom:28, maxWidth:760, ...hi(0.08) }}>
               Every Space,<br />
-              <span style={{ WebkitTextFillColor:"var(--gold-hi)", color:"var(--gold-hi)" }}>Immaculate.</span>
+              <span style={{ WebkitTextFillColor:"var(--orange-hi)", color:"var(--orange-hi)" }}>Immaculate.</span>
             </h1>
 
             <p style={{
               fontFamily:"var(--fb)", fontSize:17, fontWeight:500,
-              color:"rgba(255,255,255,.75)", lineHeight:1.82, maxWidth:500, marginBottom:48,
+              color:"rgba(255,255,255,.85)", lineHeight:1.82, maxWidth:500, marginBottom:48,
               ...hi(0.16),
             }}>
               Professional cleaning and sanitation for homes, hospitals, offices,
@@ -526,8 +545,8 @@ export default function Services() {
         {/* ── PROCESS STRIP ── */}
         <section className="sv-process">
           <div className="sv-wrap" style={{ marginBottom:48 }}>
-            <p className="sv-eye sv-from-below" style={{ color:"var(--gold)" }}>How It Works</p>
-            <h2 className="sv-h2-dark sv-from-below" style={{ transitionDelay:".06s" }}>
+            <p className="sv-eye sv-from-below">How It Works</p>
+            <h2 className="sv-h2 sv-from-below" style={{ transitionDelay:".06s" }}>
               Our 4-Step Process
             </h2>
           </div>
@@ -547,17 +566,17 @@ export default function Services() {
         {/* ── CTA ── */}
         <section className="sv-cta-strip sv-from-below">
           <div className="sv-cta-inner">
-            <p className="sv-eye" style={{ justifyContent:"center" }}>Ready to Begin</p>
+            <p className="sv-eye" style={{ justifyContent:"center", color:"rgba(255,255,255,.75)" }}>Ready to Begin</p>
             <h2 className="sv-h2-dark" style={{ marginBottom:16 }}>
               Need a Cleaning Service Today?
             </h2>
             <p style={{
               fontFamily:"var(--fb)", fontSize:16, fontWeight:400,
-              color:"rgba(255,255,255,.58)", marginBottom:44, lineHeight:1.78,
+              color:"rgba(255,255,255,.75)", marginBottom:44, lineHeight:1.78,
             }}>
               Fast delivery across Kumasi. Contact Chapman Prestige Limited for professional, same-day service.
             </p>
-            <Link to="/contact" className="sv-btn-primary">
+            <Link to="/contact" className="sv-btn-primary" style={{ background:"#fff", color:"var(--green-deep)", boxShadow:"0 4px 20px rgba(0,0,0,.15)" }}>
               Contact Us <ArrowRight size={15} />
             </Link>
           </div>

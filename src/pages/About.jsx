@@ -10,38 +10,39 @@ const CSS = `
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
 
 :root {
-  /* ── Base surfaces: rich warm brown mid-tones ── */
-  --ab-bg:        #2A1F14;   /* page base */
-  --ab-bg2:       #342618;   /* card surface */
-  --ab-bg3:       #3E2E1C;   /* card hover / elevated */
-  --ab-bg4:       #241A0F;   /* deeper section contrast */
-  --ab-bg-alt:    #301F0E;   /* values interlude */
+  /* ── Base surfaces: bright white ── */
+  --ab-bg:        #FFFFFF;
+  --ab-bg2:       #FFFFFF;
+  --ab-bg3:       #F0FDF4;
+  --ab-bg4:       #F7FDF4;
+  --ab-bg-alt:    #F0FDF4;
 
   /* ── Accent palette ── */
-  --green:        #059669;
-  --green-hi:     #10B981;
-  --green-deep:   #047857;
-  --green-glow:   rgba(5,150,105,.18);
+  --green:        #65A30D;
+  --green-hi:     #84CC16;
+  --green-deep:   #4D7C0F;
+  --green-glow:   rgba(101,163,13,.18);
 
-  --gold:         #D97706;
-  --gold-hi:      #F59E0B;
-  --gold-lo:      #92400E;
-  --gold-glow:    rgba(217,119,6,.18);
+  --orange:       #F97316;
+  --orange-hi:    #FB923C;
+  --orange-deep:  #EA580C;
+  --orange-glow:  rgba(249,115,22,.18);
 
-  --coral:        #DA7756;
-  --coral-hi:     #E8896A;
-  --coral-glow:   rgba(218,119,86,.18);
+  --amber:        #D97706;
+  --amber-hi:     #F59E0B;
+  --amber-deep:   #92400E;
+  --amber-glow:   rgba(217,119,6,.18);
 
-  /* ── Text on warm brown base ── */
-  --txt-hi:       #F0E4CC;   /* headings */
-  --txt-md:       #C4AA88;   /* body copy */
-  --txt-lo:       #8A7055;   /* muted labels */
-  --txt-xlo:      #5A4535;   /* very muted */
+  /* ── Text on white base ── */
+  --txt-hi:       #111827;
+  --txt-md:       #374151;
+  --txt-lo:       #6B7280;
+  --txt-xlo:      #9CA3AF;
 
-  /* ── Borders on dark warm base ── */
-  --line:         rgba(240,228,204,.08);
-  --line2:        rgba(240,228,204,.14);
-  --line3:        rgba(240,228,204,.04);
+  /* ── Borders on white base ── */
+  --line:         #E5E7EB;
+  --line2:        #D1D5DB;
+  --line3:        #F3F4F6;
 
   --font-head:    'Outfit', system-ui, sans-serif;
   --font-body:    'DM Sans', system-ui, sans-serif;
@@ -66,7 +67,7 @@ const CSS = `
 @keyframes ab-fade  { from { opacity:0 } to { opacity:1 } }
 @keyframes ab-line  { from { transform:scaleX(0); transform-origin:left } to { transform:scaleX(1); transform-origin:left } }
 @keyframes ab-bg-drift { from { transform:translateY(-50%) translateX(0) } to { transform:translateY(-52%) translateX(-28px) } }
-@keyframes ab-pulse-green { 0%,100% { box-shadow:0 0 0 0 rgba(5,150,105,.4) } 50% { box-shadow:0 0 0 10px rgba(5,150,105,0) } }
+@keyframes ab-pulse-green { 0%,100% { box-shadow:0 0 0 0 rgba(101,163,13,.4) } 50% { box-shadow:0 0 0 10px rgba(101,163,13,0) } }
 @keyframes ab-badge-float { 0%,100% { transform:translateY(0) } 50% { transform:translateY(-9px) } }
 @keyframes ab-shimmer { 0% { left:-60% } 100% { left:140% } }
 
@@ -85,9 +86,9 @@ const CSS = `
 .ab-eye {
   display:inline-flex; align-items:center; gap:8px;
   font-family:var(--font-body); font-size:11px; font-weight:600;
-  letter-spacing:.22em; text-transform:uppercase; color:var(--coral);
+  letter-spacing:.22em; text-transform:uppercase; color:var(--orange);
 }
-.ab-eye::before { content:''; display:block; width:20px; height:1.5px; background:var(--coral); border-radius:2px; }
+.ab-eye::before { content:''; display:block; width:20px; height:1.5px; background:var(--orange); border-radius:2px; }
 
 /* ── luxury button ── */
 .ab-btn {
@@ -103,8 +104,8 @@ const CSS = `
   transform:skewX(-15deg); transition:left .55s var(--ease);
 }
 .ab-btn:hover::before { left:140%; }
-.ab-btn-primary { background:var(--txt-hi); color:#1C0E05; box-shadow:0 8px 28px rgba(0,0,0,.35); }
-.ab-btn-primary:hover { transform:translateY(-4px); box-shadow:0 18px 48px rgba(0,0,0,.45); }
+.ab-btn-primary { background:linear-gradient(135deg,var(--green),var(--green-hi)); color:#fff; box-shadow:0 8px 28px rgba(101,163,13,.35); }
+.ab-btn-primary:hover { transform:translateY(-4px); box-shadow:0 18px 48px rgba(101,163,13,.45); }
 .ab-btn-primary:active { transform:scale(.96); transition-duration:.1s; }
 
 /* ══════════════════════
@@ -114,20 +115,20 @@ const CSS = `
   position:relative; overflow:hidden;
   padding:160px 56px 100px;
   border-bottom:1px solid var(--line2);
-  background:var(--ab-bg4);
+  background:linear-gradient(135deg,var(--green-deep) 0%,var(--green) 50%,var(--green-hi) 100%);
 }
 .ab-hero::before {
   content:''; position:absolute; inset:0; pointer-events:none;
   background:
-    radial-gradient(ellipse 55% 65% at 10% 55%, rgba(5,150,105,.12), transparent),
-    radial-gradient(ellipse 50% 60% at 88% 18%, rgba(218,119,86,.14), transparent),
+    radial-gradient(ellipse 55% 65% at 10% 55%, rgba(255,255,255,.12), transparent),
+    radial-gradient(ellipse 50% 60% at 88% 18%, rgba(249,115,22,.14), transparent),
     radial-gradient(ellipse 40% 50% at 60% 92%, rgba(217,119,6,.10), transparent);
 }
 
 .ab-hero-bg-word {
   position:absolute; right:-60px; top:50%;
   font-family:var(--font-head); font-size:clamp(180px,22vw,320px);
-  font-weight:900; color:rgba(240,228,204,.03);
+  font-weight:900; color:rgba(255,255,255,.08);
   letter-spacing:-0.05em; line-height:1; pointer-events:none;
   transform:translateY(-50%);
   animation:ab-bg-drift 22s ease-in-out infinite alternate;
@@ -136,7 +137,7 @@ const CSS = `
 
 .ab-hero-rule {
   height:1.5px;
-  background:linear-gradient(90deg, var(--green), var(--gold), transparent);
+  background:linear-gradient(90deg, #fff, var(--orange-hi), transparent);
   width:160px;
   transform:scaleX(0); transform-origin:left;
   animation:ab-line 1s .15s var(--ease) forwards;
@@ -145,29 +146,30 @@ const CSS = `
 
 .ab-hero-badge {
   position:absolute; top:72px; right:56px;
-  background:rgba(217,119,6,.15); border:1.5px solid rgba(217,119,6,.3);
+  background:rgba(255,255,255,.15); border:1.5px solid rgba(255,255,255,.3);
   border-radius:100px; padding:12px 22px;
   font-family:var(--font-head); font-size:12px; font-weight:700;
-  color:var(--gold-hi); letter-spacing:.05em; text-transform:uppercase;
+  color:#fff; letter-spacing:.05em; text-transform:uppercase;
   animation:ab-badge-float 4.5s ease-in-out infinite;
-  box-shadow:0 8px 28px rgba(217,119,6,.2);
+  box-shadow:0 8px 28px rgba(0,0,0,.15);
+  backdrop-filter:blur(8px);
 }
 
 /* stat strip */
 .ab-stat-strip {
   display:flex; gap:0; margin-top:72px; padding-top:48px;
-  border-top:1px solid var(--line2);
+  border-top:1px solid rgba(255,255,255,.2);
 }
-.ab-stat-item { flex:1; padding-right:40px; border-right:1px solid var(--line2); }
+.ab-stat-item { flex:1; padding-right:40px; border-right:1px solid rgba(255,255,255,.2); }
 .ab-stat-item:last-child  { border-right:none; padding-right:0; padding-left:40px; }
 .ab-stat-item:not(:first-child):not(:last-child) { padding-left:40px; }
 .ab-stat-num {
   font-family:var(--font-head);
   font-size:clamp(32px,4.5vw,52px);
-  font-weight:900; color:var(--txt-hi); line-height:1; letter-spacing:-0.04em;
+  font-weight:900; color:#fff; line-height:1; letter-spacing:-0.04em;
   margin-bottom:6px;
 }
-.ab-stat-label { font-family:var(--font-body); font-size:13px; color:var(--txt-lo); }
+.ab-stat-label { font-family:var(--font-body); font-size:13px; color:rgba(255,255,255,.75); }
 
 /* ══════════════════════
    CHAPTER SYSTEM
@@ -184,7 +186,7 @@ const CSS = `
 }
 .ab-chapter-num {
   font-family:var(--font-head); font-size:80px; font-weight:900;
-  color:rgba(240,228,204,.05); letter-spacing:-0.05em; line-height:1;
+  color:var(--line3); letter-spacing:-0.05em; line-height:1;
   margin-bottom:4px;
 }
 .ab-chapter-bar { height:3px; width:48px; border-radius:2px; margin-top:12px; }
@@ -207,9 +209,9 @@ const CSS = `
   margin-top:28px; padding:18px 22px;
   border-left:3px solid var(--green);
   border-radius:0 12px 12px 0;
-  background:rgba(5,150,105,.12);
+  background:var(--ab-bg3);
   font-family:var(--font-body); font-size:14px; font-weight:400;
-  color:var(--green-hi); line-height:1.75; max-width:520px;
+  color:var(--green-deep); line-height:1.75; max-width:520px;
 }
 
 /* ══════════════════════
@@ -224,34 +226,35 @@ const CSS = `
   background:var(--ab-bg2);
   transition:transform .5s var(--ease), box-shadow .5s, border-color .35s, background .35s;
   cursor:default;
+  box-shadow:0 1px 3px rgba(0,0,0,.08);
 }
 .ab-vm::after {
   content:''; position:absolute; top:-50px; right:-50px;
   width:160px; height:160px; border-radius:50%; pointer-events:none;
 }
-.ab-vm:hover { transform:translateY(-8px); background:var(--ab-bg3); }
+.ab-vm:hover { transform:translateY(-8px); background:var(--ab-bg3); box-shadow:0 12px 40px rgba(0,0,0,.12); }
 
-.ab-vm-vision  { border-color:rgba(218,119,86,.25); }
-.ab-vm-mission { border-color:rgba(217,119,6,.25); }
-.ab-vm-vision::after  { background:radial-gradient(circle, rgba(218,119,86,.12), transparent 70%); }
-.ab-vm-mission::after { background:radial-gradient(circle, rgba(217,119,6,.10),  transparent 70%); }
-.ab-vm-vision:hover  { box-shadow:0 28px 60px rgba(218,119,86,.2); border-color:rgba(218,119,86,.4); }
-.ab-vm-mission:hover { box-shadow:0 28px 60px rgba(217,119,6,.18); border-color:rgba(217,119,6,.4); }
+.ab-vm-vision  { border-color:var(--orange-glow); }
+.ab-vm-mission { border-color:var(--amber-glow); }
+.ab-vm-vision::after  { background:radial-gradient(circle, var(--orange-glow), transparent 70%); }
+.ab-vm-mission::after { background:radial-gradient(circle, var(--amber-glow),  transparent 70%); }
+.ab-vm-vision:hover  { box-shadow:0 28px 60px var(--orange-glow); border-color:var(--orange); }
+.ab-vm-mission:hover { box-shadow:0 28px 60px var(--amber-glow); border-color:var(--amber); }
 
 .ab-vm-icon {
   width:44px; height:44px; border-radius:12px;
   display:flex; align-items:center; justify-content:center;
   font-size:22px; margin-bottom:18px;
 }
-.ab-vm-vision  .ab-vm-icon { background:rgba(218,119,86,.2); }
-.ab-vm-mission .ab-vm-icon { background:rgba(217,119,6,.18); }
+.ab-vm-vision  .ab-vm-icon { background:var(--orange-glow); }
+.ab-vm-mission .ab-vm-icon { background:var(--amber-glow); }
 
 .ab-vm-label {
   font-family:var(--font-body); font-size:10px; font-weight:600;
   letter-spacing:.2em; text-transform:uppercase; margin-bottom:12px;
 }
-.ab-vm-vision  .ab-vm-label { color:var(--coral-hi); }
-.ab-vm-mission .ab-vm-label { color:var(--gold-hi); }
+.ab-vm-vision  .ab-vm-label { color:var(--orange); }
+.ab-vm-mission .ab-vm-label { color:var(--amber); }
 
 .ab-vm-text {
   font-family:var(--font-body); font-size:14.5px; font-weight:300;
@@ -285,7 +288,7 @@ const CSS = `
   border-right:1px solid var(--line);
 }
 .ab-value-card:last-child { border-right:none; }
-.ab-value-card:hover { transform:translateY(-7px); background:var(--ab-bg3); z-index:1; box-shadow:0 20px 48px rgba(0,0,0,.35); }
+.ab-value-card:hover { transform:translateY(-7px); background:var(--ab-bg3); z-index:1; box-shadow:0 20px 48px rgba(101,163,13,.15); }
 .ab-value-icon {
   width:54px; height:54px; border-radius:50%;
   margin:0 auto 18px;
@@ -335,6 +338,7 @@ const CSS = `
   color:var(--txt-md); letter-spacing:-.01em;
   transition:border-color .3s, color .3s, background .3s, transform .45s var(--ease), box-shadow .4s;
   opacity:0; transform:scale(.88) translateY(12px);
+  box-shadow:0 1px 3px rgba(0,0,0,.08);
 }
 .ab-client.ab-vis { opacity:1; transform:scale(1) translateY(0); }
 .ab-client::before {
@@ -343,10 +347,10 @@ const CSS = `
 }
 .ab-client:hover {
   border-color:var(--green-hi);
-  background:rgba(5,150,105,.14);
-  color:var(--green-hi);
+  background:var(--ab-bg3);
+  color:var(--green-deep);
   transform:translateY(-5px) scale(1) !important;
-  box-shadow:0 12px 32px rgba(5,150,105,.2);
+  box-shadow:0 12px 32px var(--green-glow);
 }
 .ab-client:hover::before { background:var(--green-hi); animation:ab-pulse-green 1.2s infinite; }
 
@@ -354,21 +358,22 @@ const CSS = `
    CTA PANEL
 ══════════════════════ */
 .ab-cta {
-  background:var(--ab-bg2);
-  border:1px solid var(--line2);
+  background:linear-gradient(135deg,var(--green-deep) 0%,var(--green) 50%,var(--green-hi) 100%);
+  border:none;
   border-radius:28px; padding:80px 64px;
   position:relative; overflow:hidden; text-align:center;
+  box-shadow:0 20px 60px rgba(101,163,13,.30);
 }
 .ab-cta::before {
   content:''; position:absolute; inset:0; pointer-events:none;
   background:
-    radial-gradient(ellipse 55% 65% at 25% 50%, rgba(5,150,105,.14), transparent),
-    radial-gradient(ellipse 45% 55% at 78% 28%, rgba(218,119,86,.12), transparent),
+    radial-gradient(ellipse 55% 65% at 25% 50%, rgba(255,255,255,.14), transparent),
+    radial-gradient(ellipse 45% 55% at 78% 28%, rgba(249,115,22,.12), transparent),
     radial-gradient(ellipse 40% 50% at 60% 90%, rgba(217,119,6,.10), transparent);
 }
 .ab-cta-shimmer {
   position:absolute; top:0; bottom:0; width:40%;
-  background:linear-gradient(90deg, transparent, rgba(255,255,255,.03), transparent);
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent);
   transform:skewX(-15deg);
   animation:ab-shimmer 6s ease-in-out infinite;
   pointer-events:none;
@@ -377,20 +382,20 @@ const CSS = `
   font-family:var(--font-head);
   font-size:clamp(32px,5vw,56px);
   font-weight:900; letter-spacing:-0.035em;
-  color:var(--txt-hi); margin-bottom:16px; position:relative;
+  color:#fff; margin-bottom:16px; position:relative;
 }
 .ab-cta p {
   font-family:var(--font-body); font-size:17px; font-weight:300;
-  color:var(--txt-lo); margin-bottom:44px;
+  color:rgba(255,255,255,.75); margin-bottom:44px;
   line-height:1.75; position:relative;
 }
 .ab-cta .ab-btn-primary {
-  background:linear-gradient(135deg, var(--green), var(--green-hi));
-  color:#fff;
-  box-shadow:0 8px 28px rgba(5,150,105,.35);
+  background:#fff;
+  color:var(--green-deep);
+  box-shadow:0 8px 28px rgba(0,0,0,.15);
 }
 .ab-cta .ab-btn-primary:hover {
-  box-shadow:0 18px 48px rgba(5,150,105,.45);
+  box-shadow:0 18px 48px rgba(0,0,0,.25);
 }
 
 /* ══════════════════════
@@ -410,7 +415,7 @@ const CSS = `
   .ab-hero-bg-word { font-size:120px; }
   .ab-cta { padding:56px 36px; }
   .ab-hero-badge { display:none; }
-  .ab-stat-strip { flex-wrap:wrap; gap:32px; border-top:1px solid var(--line2); }
+  .ab-stat-strip { flex-wrap:wrap; gap:32px; border-top:1px solid rgba(255,255,255,.2); }
   .ab-stat-item { border-right:none; padding:0; flex:none; width:calc(50% - 16px); }
 }
 @media(max-width:600px){
@@ -500,7 +505,7 @@ function About() {
     "Kumasi Technical University", "Faith Healers Hospital", "Private Estates",
   ];
 
-  const tlDotColors = ["var(--coral)", "var(--gold)", "var(--green)", "var(--gold)", "var(--coral)"];
+  const tlDotColors = ["var(--orange)", "var(--amber)", "var(--green)", "var(--amber)", "var(--orange)"];
 
   return (
     <PageWrapper>
@@ -522,7 +527,7 @@ function About() {
           <div className="ab-wrap" style={{ position: "relative" }}>
             <div className="ab-hero-rule" />
 
-            <p className="ab-eye" style={{ marginBottom: 32, ...hi(0.38) }}>
+            <p className="ab-eye" style={{ marginBottom: 32, ...hi(0.38), color:"rgba(255,255,255,.85)" }}>
               Est. 2016 · Kumasi, Ghana
             </p>
 
@@ -530,17 +535,17 @@ function About() {
               fontFamily: "var(--font-head)",
               fontSize: "clamp(52px,9vw,108px)",
               fontWeight: 900, lineHeight: .90, letterSpacing: "-0.045em",
-              color: "var(--txt-hi)", marginBottom: 36, maxWidth: 860,
+              color: "#fff", marginBottom: 36, maxWidth: 860,
               ...hi(0.48),
             }}>
               Built on<br />
-              <span style={{ color: "var(--gold-hi)" }}>Eight Years</span><br />
-              of <em style={{ fontStyle: "normal", color: "var(--coral-hi)" }}>Trust.</em>
+              <span style={{ color: "var(--orange-hi)" }}>Ten Years</span><br />
+              of <em style={{ fontStyle: "normal", color: "var(--amber-hi)" }}>Trust.</em>
             </h1>
 
             <p style={{
               fontFamily: "var(--font-body)", fontSize: 18, fontWeight: 300,
-              color: "var(--txt-md)", lineHeight: 1.8, maxWidth: 500,
+              color: "rgba(255,255,255,.85)", lineHeight: 1.8, maxWidth: 500,
               ...hi(0.6),
             }}>
               {BUSINESS.shortName}, the Ashanti Region's trusted partner for professional
@@ -562,10 +567,10 @@ function About() {
             <h2 className="ab-values-head ab-rv">What We Stand For</h2>
             <div className="ab-values-grid">
               {[
-                { icon: "🎯", label: "Precision",      desc: "Every facility treated with exacting detail, every time.",                       bg: "rgba(218,119,86,.2)"  },
-                { icon: "🌿", label: "Sustainability",  desc: "Eco-friendly products safe for people and the environment.",                     bg: "rgba(5,150,105,.2)"   },
-                { icon: "🤝", label: "Trust",          desc: "Institutions depend on us because we deliver without fail.",                      bg: "rgba(217,119,6,.2)"   },
-                { icon: "⭐", label: "Excellence",     desc: "We hold every space to the highest standard of cleanliness.",                     bg: "rgba(5,150,105,.15)"  },
+                { icon: "🎯", label: "Precision",      desc: "Every facility treated with exacting detail, every time.",                       bg: "var(--orange-glow)"  },
+                { icon: "🌿", label: "Sustainability",  desc: "Eco-friendly products safe for people and the environment.",                     bg: "var(--green-glow)"   },
+                { icon: "🤝", label: "Trust",          desc: "Institutions depend on us because we deliver without fail.",                      bg: "var(--amber-glow)"   },
+                { icon: "⭐", label: "Excellence",     desc: "We hold every space to the highest standard of cleanliness.",                     bg: "var(--green-glow)"  },
               ].map(({ icon, label, desc, bg }, i) => (
                 <div key={label} className="ab-value-card ab-rv" style={{ transitionDelay: `${i * 0.1}s` }}>
                   <div className="ab-value-icon" style={{ background: bg }}>{icon}</div>
@@ -583,8 +588,8 @@ function About() {
             <div className="ab-chapter">
               <div>
                 <div className="ab-chapter-num ab-rv-fade" style={{ color: "var(--green)", fontWeight: 800 }}>01</div>
-<div className="ab-chapter-label ab-rv" style={{ color: "var(--gold-hi)", fontWeight: 600 }}>Who we are</div>
-<div className="ab-chapter-bar ab-rv" style={{ background: "linear-gradient(90deg,var(--green),var(--gold-hi))", transitionDelay: ".08s" }} />
+<div className="ab-chapter-label ab-rv" style={{ color: "var(--orange)", fontWeight: 600 }}>Who we are</div>
+<div className="ab-chapter-bar ab-rv" style={{ background: "linear-gradient(90deg,var(--green),var(--orange-hi))", transitionDelay: ".08s" }} />
               </div>
               <div>
                 <p className="ab-pull ab-rv">
@@ -616,12 +621,12 @@ function About() {
             <div className="ab-chapter">
               <div>
                 <div className="ab-chapter-num ab-rv-fade" style={{ color: "var(--green)", fontWeight: 800 }}>02</div>
-<div className="ab-chapter-label ab-rv" style={{ color: "var(--gold-hi)", fontWeight: 600 }}>Our Purpose</div>
-<div className="ab-chapter-bar ab-rv" style={{ background: "linear-gradient(90deg, var(--green), var(--gold-hi))", transitionDelay: ".08s" }} />
+<div className="ab-chapter-label ab-rv" style={{ color: "var(--orange)", fontWeight: 600 }}>Our Purpose</div>
+<div className="ab-chapter-bar ab-rv" style={{ background: "linear-gradient(90deg, var(--green), var(--orange-hi))", transitionDelay: ".08s" }} />
               </div>
               <div>
                 <p className="ab-pull ab-rv" style={{ marginBottom: 32 }}>
-                  Driven by a vision bigger than Kumasi.
+                  Driven by a vision for a cleaner Ghana.
                 </p>
                 <div className="ab-vm-grid">
                   {[
@@ -656,19 +661,19 @@ function About() {
             <div className="ab-chapter">
               <div>
                 <div className="ab-chapter-num ab-rv-fade" style={{ color: "var(--green)", fontWeight: 800 }}>03</div>
-<div className="ab-chapter-label ab-rv" style={{ color: "var(--gold-hi)", fontWeight: 600 }}>Our history</div>
-<div className="ab-chapter-bar ab-rv" style={{ background: "linear-gradient(90deg, var(--green), var(--gold-hi))", transitionDelay: ".08s" }} />
+<div className="ab-chapter-label ab-rv" style={{ color: "var(--orange)", fontWeight: 600 }}>Our history</div>
+<div className="ab-chapter-bar ab-rv" style={{ background: "linear-gradient(90deg, var(--green), var(--orange-hi))", transitionDelay: ".08s" }} />
               </div>
               <div style={{ width: "100%" }}>
                 <p className="ab-pull ab-rv" style={{ marginBottom: 40 }}>
-                  Eight years of steady, earned growth.
+                  Ten years of steady, earned growth.
                 </p>
                 {TIMELINE_DATA.map((item, i) => (
   <div key={item.year} className="ab-tl-item" style={{ transitionDelay: `${i * 0.1}s` }}>
     <div 
       className="ab-tl-year"
       style={{
-        background: "linear-gradient(135deg, var(--green), var(--gold-hi))",
+        background: "linear-gradient(135deg, var(--green), var(--orange-hi))",
         WebkitBackgroundClip: "text",
         WebkitTextFillColor: "transparent",
         backgroundClip: "text",
@@ -693,8 +698,8 @@ function About() {
             <div className="ab-chapter" style={{ alignItems: "center" }}>
               <div>
                 <div className="ab-chapter-num ab-rv-fade" style={{ color: "var(--green)", fontWeight: 800 }}>04</div>
-<div className="ab-chapter-label ab-rv" style={{ color: "var(--gold-hi)", fontWeight: 600 }}>Major clients</div>
-<div className="ab-chapter-bar ab-rv" style={{ background: "linear-gradient(90deg, var(--green), var(--gold-hi))", transitionDelay: ".08s" }} />
+<div className="ab-chapter-label ab-rv" style={{ color: "var(--orange)", fontWeight: 600 }}>Major clients</div>
+<div className="ab-chapter-bar ab-rv" style={{ background: "linear-gradient(90deg, var(--green), var(--orange-hi))", transitionDelay: ".08s" }} />
               </div>
               <div>
                 <p className="ab-pull ab-rv" style={{ marginBottom: 36 }}>
@@ -717,7 +722,7 @@ function About() {
           <div style={{ maxWidth: 1100, margin: "0 auto" }}>
             <div className="ab-cta ab-rv">
               <div className="ab-cta-shimmer" />
-              <p className="ab-eye" style={{ justifyContent: "center", marginBottom: 20, color: "rgba(255,255,255,.4)" }}>
+              <p className="ab-eye" style={{ justifyContent: "center", marginBottom: 20, color: "rgba(255,255,255,.75)" }}>
                 Work with us
               </p>
               <h2>Ready to Work With Us?</h2>
