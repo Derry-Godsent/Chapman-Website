@@ -2,6 +2,8 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import Layout from "./components/Layout";
 import { AnimatePresence } from "framer-motion";
 import ErrorBoundary from "./components/ErrorBoundary";
+import Staffing from "./pages/Staffing.jsx";
+
 
 import { lazy, Suspense } from "react";
 const Home       = lazy(() => import("./pages/Home"));
@@ -33,6 +35,7 @@ function App() {
             <Route path="/team"     element={<Team />}     />
             <Route path="*"         element={<NotFound />} />
             <Route path="/careers" element={<Careers />} />
+            <Route path="/staffing" element={<Staffing />} />
           </Routes>
           </Suspense>
         </AnimatePresence>

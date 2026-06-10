@@ -37,6 +37,7 @@ export const NAV_LINKS = [
   { to: "/contact", label: "Contact" },
   { to: "/team", label: "Team" },
   { to: "/careers", label: "Careers" },
+  { to: "/staffing", label: "Expert Network" },
 ];
 
 export const TIMELINE = [
