@@ -609,7 +609,7 @@ export default function Team() {
               <div className="tm-avatar-card card-5">
                 <div className="tm-avatar-circle">C</div>
                 <div className="tm-avatar-info">
-                  <div className="tm-avatar-name">Comfort</div>
+                  <div className="tm-avatar-name">Comfort Anokye</div>
                   <div className="tm-avatar-role">Laundry Supervisor</div>
                 </div>
               </div>
