@@ -99,14 +99,19 @@ const CSS = `
 /* ── Headlines ── */
 .hm-h1 {
   font-family:var(--fh);
-  font-size:clamp(46px,6.5vw,84px);
-  font-weight:800; line-height:.97;
-  letter-spacing:-.04em;
+  font-size:clamp(32px,8vw,84px);
+  font-weight:800; 
+  line-height:1.05;
+  letter-spacing:-0.02em;
   background:linear-gradient(140deg,#fff 30%,var(--orange-hi) 100%);
-  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  -webkit-background-clip:text; 
+  -webkit-text-fill-color:transparent;
   background-clip:text;
+  word-wrap:break-word;
+  overflow-wrap:break-word;
+  hyphens:auto;
 }
-.hm-h2 {
+  .hm-h2 {
   font-family:var(--fh);
   font-size:clamp(30px,4.2vw,54px);
   font-weight:800; line-height:1.04;
@@ -385,10 +390,17 @@ const CSS = `
 }
 
 /* ── Trust marquee ── */
-.hm-marquee-wrap { overflow:hidden; }
+.hm-marquee-wrap { 
+  overflow:hidden; 
+  width:100%;
+}
 .hm-marquee-track {
-  display:flex; width:max-content;
+  display:flex; 
+  width:max-content;
   animation:hm-marquee 24s linear infinite;
+  will-change:transform;
+  transform:translateZ(0);
+  backface-visibility:hidden;
 }
 .hm-marquee-track:hover { animation-play-state:paused; }
 .hm-marquee-item {
@@ -397,6 +409,7 @@ const CSS = `
   font-family:var(--fh); font-size:12px; font-weight:700;
   letter-spacing:.18em; text-transform:uppercase;
   color:#fff; white-space:nowrap;
+  flex-shrink:0;
 }
 .hm-marquee-item::after { content:'◆'; font-size:7px; opacity:.6; }
 
@@ -514,6 +527,24 @@ const CSS = `
 @media(max-width:560px){
   .hm-h1 { font-size:40px; }
   .hm-h2,.hm-h2-dark,.hm-h2-white { font-size:28px; }
+}
+
+@media(max-width:768px){
+  .hm-wrap { padding:0 22px; }
+  .hm-section { padding:76px 0; }
+  .hm-panel { grid-template-columns:1fr; gap:36px; padding:40px 30px; }
+  .hm-cta-panel { padding:64px 30px; }
+  .hm-carousel-btn { width:42px; height:42px; }
+  .hm-carousel-prev { left:14px; }
+  .hm-carousel-next { right:14px; }
+  /* Faster marquee on mobile */
+  .hm-marquee-track { animation-duration: 18s; }
+}
+@media(max-width:560px){
+  .hm-h1 { font-size:36px; line-height:1.1; }
+  .hm-h2,.hm-h2-dark,.hm-h2-white { font-size:28px; }
+  /* Even faster on very small screens */
+  .hm-marquee-track { animation-duration: 14s; }
 }
 `;
 
@@ -711,15 +742,16 @@ export default function Home() {
         <div style={{ position:"relative", zIndex:2, maxWidth:860, margin:"0 auto", width:"100%" }}>
           {/* Frosted text backdrop for extra readability */}
           <div style={{
-            background:"rgba(10,15,20,.35)",
-            backdropFilter:"blur(2px)",
-            WebkitBackdropFilter:"blur(2px)",
-            borderRadius:24,
-            padding:"40px 48px 44px",
-            border:"1px solid rgba(255,255,255,.08)",
-            display:"inline-block",
-            width:"100%",
-          }}>
+  background:"rgba(10,15,20,.35)",
+  backdropFilter:"blur(2px)",
+  WebkitBackdropFilter:"blur(2px)",
+  borderRadius:24,
+  padding:"32px 28px 36px",
+  border:"1px solid rgba(255,255,255,.08)",
+  display:"block",
+  width:"100%",
+  overflow:"hidden",
+}}>
             <p className="hm-eyebrow" style={{ color:"var(--orange-hi)", ...hi(0) }}>
               Est. 2016 · Kumasi, Ghana
             </p>
