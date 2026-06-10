@@ -390,9 +390,12 @@ const CSS = `
 }
 
 /* ── Trust marquee ── */
+/* ── Trust marquee ── */
 .hm-marquee-wrap { 
   overflow:hidden; 
   width:100%;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 .hm-marquee-track {
   display:flex; 
@@ -401,8 +404,17 @@ const CSS = `
   will-change:transform;
   transform:translateZ(0);
   backface-visibility:hidden;
+  perspective:1000px;
+  -webkit-perspective:1000px;
+  -webkit-backface-visibility:hidden;
+  -webkit-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
+  -webkit-animation:hm-marquee 24s linear infinite;
 }
-.hm-marquee-track:hover { animation-play-state:paused; }
+.hm-marquee-track:hover { 
+  animation-play-state:paused; 
+  -webkit-animation-play-state:paused;
+}
 .hm-marquee-item {
   display:flex; align-items:center; gap:32px;
   padding:0 32px;
@@ -410,6 +422,8 @@ const CSS = `
   letter-spacing:.18em; text-transform:uppercase;
   color:#fff; white-space:nowrap;
   flex-shrink:0;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 .hm-marquee-item::after { content:'◆'; font-size:7px; opacity:.6; }
 
@@ -540,11 +554,28 @@ const CSS = `
   /* Faster marquee on mobile */
   .hm-marquee-track { animation-duration: 18s; }
 }
+@media(max-width:768px){
+  .hm-wrap { padding:0 22px; }
+  .hm-section { padding:76px 0; }
+  .hm-panel { grid-template-columns:1fr; gap:36px; padding:40px 30px; }
+  .hm-cta-panel { padding:64px 30px; }
+  .hm-carousel-btn { width:42px; height:42px; }
+  .hm-carousel-prev { left:14px; }
+  .hm-carousel-next { right:14px; }
+  /* Faster marquee on mobile */
+  .hm-marquee-track { 
+    animation-duration: 18s; 
+    -webkit-animation-duration: 18s;
+  }
+}
 @media(max-width:560px){
   .hm-h1 { font-size:36px; line-height:1.1; }
   .hm-h2,.hm-h2-dark,.hm-h2-white { font-size:28px; }
   /* Even faster on very small screens */
-  .hm-marquee-track { animation-duration: 14s; }
+  .hm-marquee-track { 
+    animation-duration: 14s;
+    -webkit-animation-duration: 14s;
+  }
 }
 `;
 
