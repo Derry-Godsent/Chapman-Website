@@ -485,7 +485,7 @@ const TEAM = {
   ],
   staff: [
     {
-      name: "Comfort",
+      name: "Comfort Anokye",
       role: "Laundry Supervisor",
       image: "/team/x.jpg",
       contact: { email: "-", phone: "-" },
