@@ -7,7 +7,7 @@ export const BUSINESS = {
   tagline: "Cleaning · Laundry · Sanitation",
   
   // Emails - BOTH receive messages (ARRAY)
-  emails: ["chapmanprestigelimited@gmail.com", "kenchapsy@gmail.com"],
+  emails: ["chapmanprestigeltd1@gmail.com", "kenchapsy@gmail.com"],
   
   // Phone - ONE number for calls
   phone: "233534134809",

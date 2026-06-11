@@ -68,7 +68,7 @@ function QueryFloater() {
           </a>
           {/* ✅ Email - Safe access with fallback */}
           <a 
-            href={`mailto:${(BUSINESS.emails?.[0]) || "chapmanprestigelimited@gmail.com"}`} 
+            href={`mailto:${(BUSINESS.emails?.[0]) || "chapmanprestigeltd1@gmail.com"}`} 
             className="query-quick-link query-email"
           >
             <Mail size={15} /> Email

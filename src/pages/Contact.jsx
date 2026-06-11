@@ -648,7 +648,7 @@ function Contact() {
                     <div className="ct2-info-icon"><Mail size={17}/></div>
                     <div>
                       <div className="ct2-info-lbl">Email</div>
-                      {(BUSINESS.emails || ["kenchapsy@gmail.com","chapmanprestigelimited@gmail.com"]).map(e => (
+                      {(BUSINESS.emails || ["kenchapsy@gmail.com","chapmanprestigeltd1@gmail.com"]).map(e => (
                         <a key={e} href={`mailto:${e}`} className="ct2-info-val">{e}</a>
                       ))}
                     </div>
