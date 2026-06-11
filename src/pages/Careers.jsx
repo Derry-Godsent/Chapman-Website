@@ -1019,9 +1019,9 @@ export default function Careers() {
                     Apply Online Here
                   </a>
 
-                  <a href="mailto:chapmanprestige@gmail.com" className="cr-apply-email">
+                  <a href="mailto:chapmanprestigeltd1@gmail.com" className="cr-apply-email">
                     <Mail size={16} />
-                    chapmanprestige@gmail.com
+                    chapmanprestigeltd1@gmail.com
                   </a>
                 </div>
 

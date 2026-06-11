@@ -96,10 +96,10 @@ const PRIVACY_TEXT = `
   <p>We implement reasonable security measures to protect your personal data from unauthorized access, alteration, or disclosure. However, no method of transmission over the internet is 100% secure.</p>
 
   <h3>5. Your Rights</h3>
-  <p>You have the right to request access to, correction of, or deletion of your personal data at any time. To exercise these rights, please contact us at <strong>chapmanprestige@gmail.com or kenchapsy@gmail.com</strong>.</p>
+  <p>You have the right to request access to, correction of, or deletion of your personal data at any time. To exercise these rights, please contact us at <strong>chapmanprestigeltd1@gmail.com or kenchapsy@gmail.com</strong>.</p>
 
   <h3>6. Contact Us</h3>
-  <p>If you have any questions about this Privacy Policy, please reach out to us via WhatsApp at <strong>+233 54 212 8342</strong> or email us at <strong>chapmanprestige@gmail.com / kenchapsy@gmail.com </strong>.</p>
+  <p>If you have any questions about this Privacy Policy, please reach out to us via WhatsApp at <strong>+233 54 212 8342</strong> or email us at <strong>chapmanprestigeltd1@gmail.com / kenchapsy@gmail.com </strong>.</p>
 `;
 
 const TERMS_TEXT = `
@@ -131,7 +131,7 @@ const TERMS_TEXT = `
   <h3>8. Contact Information</h3>
   <p>For any questions regarding these Terms, please contact us at:</p>
   <ul>
-    <li><strong>Email:</strong> chapmanprestige@gmail.com or kenchapsy@gmail.com </li>
+    <li><strong>Email:</strong> chapmanprestigeltd1@gmail.com or kenchapsy@gmail.com </li>
     <li><strong>Phone/WhatsApp:</strong> +233 54 212 8342 / +233 23 227 6648</li>
     <li><strong>Location:</strong> Kwadaso-Ohwimase, Kumasi, Ashanti Region, Ghana</li>
   </ul>
