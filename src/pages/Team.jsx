@@ -3,13 +3,14 @@ import PageWrapper from "../components/PageWrapper";
 import { useEffect, useState } from "react";
 import { useScrollReveal, useDelayedMount } from "../utils/hooks";
 import { BUSINESS } from "../config/business.jsx";
+import { User } from "lucide-react";
 import { Helmet } from "react-helmet-async";
 
 /* 
    TEAM — Unique Split-Layout Hero (FIXED)
    · 10+ Years badge (2016-2026)
    · Cards arranged in a circle around the badge — no overlap
-   · Bright, clean aesthetic
+   · Clean, large white placeholder icons for team members
 */
 const CSS = `
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
@@ -255,10 +256,7 @@ const CSS = `
   color:var(--ink-45); margin-top:2px;
 }
 
-/* 
-   Cards positioned in a pentagon/circle around the center.
-   The center (around 50% 50%) is left clear for the badge.
-*/
+/* Cards positioned in a pentagon/circle around the center */
 .tm-avatar-card.card-1 {
   top: 2%; left: 50%;
   transform: translateX(-50%);
@@ -290,10 +288,7 @@ const CSS = `
 }
 .tm-avatar-card.card-5 .tm-avatar-circle { background: linear-gradient(135deg, var(--green-deep), var(--green)); }
 
-/* 
-   Central badge — truly centered, higher z-index, 
-   stays above cards without blocking them.
-*/
+/* Central badge */
 .tm-hero-badge {
   position: absolute;
   top: 50%; left: 50%;
@@ -337,16 +332,24 @@ const CSS = `
   transform:translateY(-7px);
   box-shadow:var(--shadow-xl);
 }
+
+/* Updated for Large White Placeholder Icon */
 .tm-card-img {
-  width:100%; aspect-ratio:4/3;
-  background:linear-gradient(135deg, var(--green), var(--green-hi));
-  display:flex; align-items:center; justify-content:center;
-  color:#fff; font-family:var(--fh); font-size:14px; font-weight:600;
-  letter-spacing:.04em; text-transform:uppercase;
-  transition:transform .4s var(--ease);
-  object-fit: cover;
+  width: 100%; 
+  aspect-ratio: 4/3;
+  background: #FFFFFF;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  color: var(--ink-25); /* Soft gray for subtle elegance */
+  transition: transform .4s var(--ease), color .4s var(--ease);
+  border-bottom: 1px solid var(--line);
 }
-.tm-card:hover .tm-card-img { transform:scale(1.04); }
+.tm-card:hover .tm-card-img { 
+  transform: scale(1.04); 
+  color: var(--green); /* Turns brand green on hover */
+}
+
 .tm-card-body { padding:28px 24px; }
 .tm-card-name {
   font-family:var(--fh); font-size:18px; font-weight:700;
@@ -451,34 +454,30 @@ function StyleTag() {
   return null;
 }
 
-// Team data
+// Team data (Image paths removed for clean placeholders)
 const TEAM = {
   leadership: [
     {
       name: "William Chapman",
       role: "Founder & CEO",
-      image: "/team/x.jpg",
       contact: { email: "kenchapsy@gmail.com", phone: "+44 7459 323742" },
       bio: "Visionary leader with 15+ years in facility management. Sets the strategic direction for Chapman Prestige, ensuring every service upholds our promise of reliability and community impact."
     },
     {
       name: "Princeton Bright",
       role: "Business Growth Strategist",
-      image: "/team/x.jpg",
       contact: { email: "derrickbright164@gmail.com", phone: "+233 54 212 8342" },
       bio: "Drives client partnerships and service expansion across the Ashanti Region. Oversees quality assurance and ensures our operations scale without compromising prestige standards."
     },
     {
       name: "King George Boakye",
       role: "Site Supervisor & Client Relations",
-      image: "/team/George.jpg",
       contact: { email: "boakyekinggeorge@gmail.com", phone: "+233 55 506 2231" },
       bio: "Manages on-site service execution and maintains direct communication with clients. Ensures timely delivery, rapid feedback resolution, and consistent team performance."
     },
     {
       name: "Princeton Addington Kwayisi Sakyi",
       role: "Operations & Logistics Lead",
-      image: "/team/x.jpg",
       contact: { email: "princetonsakyi@gmail.com", phone: "+233 23 227 6648" },
       bio: "Coordinates fleet scheduling, chemical inventory, and equipment maintenance. Keeps daily operations running smoothly and efficiently across all service locations."
     }
@@ -487,28 +486,24 @@ const TEAM = {
     {
       name: "Comfort Anokye",
       role: "Laundry Supervisor",
-      image: "/team/x.jpg",
       contact: { email: "-", phone: "-" },
       bio: "Manages the full laundry workflow from intake to delivery. Oversees staff scheduling, quality checks, and ensures garments are processed with care and returned on time."
     },
     {
       name: "James Owusu",
       role: "Steam Press Operator",
-      image: "/team/x.jpg",
       contact: { email: "-", phone: "-" },
       bio: "Expert in high-volume garment pressing and fabric finishing. Ensures crisp, professional results for uniforms, linens, and delicate items using industrial-grade equipment."
     },
     {
       name: "Hagar Asante",
       role: "On-site Supervisor - St. Martins Hospital",
-      image: "/team/x.jpg",
       contact: { email: "-", phone: "-" },
       bio: "Leads daily sanitation routines in clinical environments. Trained in infection control protocols, PPE management, and hospital-grade disinfection standards."
     },
     {
       name: "Prosper Agbetsiame",
       role: "Cleaning Team Lead",
-      image: "/team/x.jpg",
       contact: { email: "-", phone: "-" },
       bio: "Directs residential and commercial cleaning crews. Specializes in deep-cleaning operations, staff training, and maintaining strict attention to detail on every job site."
     }
@@ -607,7 +602,7 @@ export default function Team() {
 
               {/* Card 5 — Top left (Deep Green) */}
               <div className="tm-avatar-card card-5">
-                <div className="tm-avatar-circle">C</div>
+                <div className="tm-avatar-circle">CA</div>
                 <div className="tm-avatar-info">
                   <div className="tm-avatar-name">Comfort Anokye</div>
                   <div className="tm-avatar-role">Laundry Supervisor</div>
@@ -630,13 +625,10 @@ export default function Team() {
             <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(300px,1fr))", gap:24 }}>
               {TEAM.leadership.map((p, i) => (
                 <div key={p.name} className={`tm-card tm-rv ${go ? "tm-visible" : ""}`} style={{ transitionDelay: (i * 0.08) + "s" }}>
-                  <img 
-                    src={p.image} 
-                    alt={`${p.name}, ${p.role}`} 
-                    className="tm-card-img"
-                    style={{ objectFit: "cover" }}
-                    onError={(e) => { e.target.src = "/team/placeholder.jpg"; }}
-                  />
+                  {/* Large White Placeholder Icon */}
+                  <div className="tm-card-img">
+                    <User size={96} strokeWidth={1} />
+                  </div>
                   <div className="tm-card-body">
                     <h3 className="tm-card-name">{p.name}</h3>
                     <div className="tm-card-role">{p.role}</div>
@@ -664,13 +656,10 @@ export default function Team() {
             <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(280px,1fr))", gap:20 }}>
               {TEAM.staff.map((p, i) => (
                 <div key={p.name} className={`tm-card tm-rv ${go ? "tm-visible" : ""}`} style={{ transitionDelay: (i * 0.07) + "s" }}>
-                  <img 
-                    src={p.image} 
-                    alt={`${p.name}, ${p.role}`} 
-                    className="tm-card-img"
-                    style={{ objectFit: "cover" }}
-                    onError={(e) => { e.target.src = "/team/placeholder.jpg"; }}
-                  />
+                  {/* Large White Placeholder Icon */}
+                  <div className="tm-card-img">
+                    <User size={96} strokeWidth={1} />
+                  </div>
                   <div className="tm-card-body">
                     <h3 className="tm-card-name">{p.name}</h3>
                     <div className="tm-card-role">{p.role}</div>

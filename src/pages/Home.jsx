@@ -187,60 +187,66 @@ const CSS = `
   animation:hm-orb 14s ease-in-out infinite;
 }
 
-/* ── VIDEO CAROUSEL ── */
-.hm-video-wrap {
-  position:absolute; inset:0; z-index:0; overflow:hidden;
+/* ── VIDEO CAROUSEL (OPTIMIZED) ── */
+.hm-video-container {
+  position: absolute; inset: 0; z-index: 0; 
+  background: #0a0f14; /* Dark fallback color while loading */
+  overflow: hidden;
 }
-.hm-video-slide {
-  position:absolute; inset:0;
-  opacity:0; transition:opacity 1.2s ease;
+.hm-video-element {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; 
+  object-fit: cover;
+  opacity: 0; 
+  transition: opacity 0.8s ease-in-out;
+  filter: saturate(0.85) brightness(0.9);
+  /* Force hardware acceleration */
+  transform: translateZ(0); 
+  will-change: opacity;
 }
-.hm-video-slide.active { opacity:1; }
-.hm-video-slide video {
-  width:100%; height:100%; object-fit:cover;
-  /* Slight desaturation so text always pops */
-  filter:saturate(0.85) brightness(0.9);
+.hm-video-element.loaded { 
+  opacity: 1; 
 }
 
 /* Carousel controls */
 .hm-carousel-btn {
-  position:absolute; top:50%; transform:translateY(-50%);
-  z-index:6; width:52px; height:52px; border-radius:50%;
-  background:rgba(0,0,0,.32);
-  border:2px solid rgba(255,255,255,.35);
-  color:#fff; backdrop-filter:blur(12px);
-  display:flex; align-items:center; justify-content:center;
-  cursor:pointer; transition:background .25s,transform .35s var(--ease),border-color .25s,box-shadow .25s;
+  position: absolute; top: 50%; transform: translateY(-50%);
+  z-index: 6; width: 52px; height: 52px; border-radius: 50%;
+  background: rgba(0,0,0,.32);
+  border: 2px solid rgba(255,255,255,.35);
+  color: #fff; backdrop-filter: blur(12px);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: background .25s, transform .35s var(--ease), border-color .25s, box-shadow .25s;
 }
 .hm-carousel-btn:hover {
-  background:rgba(249,115,22,.75);
-  border-color:var(--orange-hi);
-  box-shadow:0 0 0 4px rgba(249,115,22,.25);
-  transform:translateY(-50%) scale(1.1);
+  background: rgba(249,115,22,.75);
+  border-color: var(--orange-hi);
+  box-shadow: 0 0 0 4px rgba(249,115,22,.25);
+  transform: translateY(-50%) scale(1.1);
 }
-.hm-carousel-btn:active { transform:translateY(-50%) scale(.95); }
-.hm-carousel-prev { left:28px; }
-.hm-carousel-next { right:28px; }
+.hm-carousel-btn:active { transform: translateY(-50%) scale(.95); }
+.hm-carousel-prev { left: 28px; }
+.hm-carousel-next { right: 28px; }
 
-/* ── Carousel dots — pill style ── */
+/* ── Carousel dots ── */
 .hm-carousel-dots {
-  position:absolute; bottom:32px; left:50%; transform:translateX(-50%);
-  z-index:6; display:flex; gap:8px; align-items:center;
-  background:rgba(0,0,0,.28); backdrop-filter:blur(8px);
-  padding:8px 14px; border-radius:100px;
-  border:1px solid rgba(255,255,255,.15);
+  position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+  z-index: 6; display: flex; gap: 8px; align-items: center;
+  background: rgba(0,0,0,.28); backdrop-filter: blur(8px);
+  padding: 8px 14px; border-radius: 100px;
+  border: 1px solid rgba(255,255,255,.15);
 }
 .hm-carousel-dot {
-  height:10px; width:10px; border-radius:100px;
-  background:rgba(255,255,255,.40);
-  border:none; padding:0;
-  cursor:pointer;
-  transition:background .35s var(--ease), width .35s var(--ease);
-  flex-shrink:0;
+  height: 10px; width: 10px; border-radius: 100px;
+  background: rgba(255,255,255,.40);
+  border: none; padding: 0;
+  cursor: pointer;
+  transition: background .35s var(--ease), width .35s var(--ease);
+  flex-shrink: 0;
 }
 .hm-carousel-dot.active {
-  width:28px;
-  background:var(--orange-hi);
+  width: 28px;
+  background: var(--orange-hi);
 }
 
 /* ── Service cards — per-card accent colors ── */
@@ -608,60 +614,93 @@ function CountUp({ target, suffix = "", duration = 1500 }) {
   return <span ref={ref}>{val}{suffix}</span>;
 }
 
-/* ── Video Carousel with click, swipe, pill dots ── */
+/* ── Optimized Video Carousel (Single Active Video) ── */
 function VideoCarousel({ videos, duration = 10000 }) {
   const [current, setCurrent] = useState(0);
-  const videoRefs = useRef([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const videoRef = useRef(null);
   const timerRef = useRef(null);
   const touchStartX = useRef(null);
   const touchStartY = useRef(null);
 
   const goTo = useCallback((idx) => {
-    setCurrent((idx + videos.length) % videos.length);
+    const nextIdx = (idx + videos.length) % videos.length;
+    setIsLoaded(false); // Fade out immediately
+    setCurrent(nextIdx);
   }, [videos.length]);
 
   const prev = useCallback(() => goTo(current - 1), [current, goTo]);
   const next = useCallback(() => goTo(current + 1), [current, goTo]);
 
+  // Auto-advance timer
   useEffect(() => {
-    clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(() => goTo(current + 1), duration);
+    const advance = () => goTo(current + 1);
+    timerRef.current = setTimeout(advance, duration);
     return () => clearTimeout(timerRef.current);
   }, [current, duration, goTo]);
 
+  // Handle video loading and playing
   useEffect(() => {
-    videoRefs.current.forEach((v, i) => {
-      if (!v) return;
-      if (i === current) { v.currentTime = 0; v.play().catch(() => {}); }
-      else v.pause();
-    });
-  }, [current]);
+    const video = videoRef.current;
+    if (!video) return;
 
+    // Reset state for new video
+    setIsLoaded(false);
+    video.pause();
+    video.src = videos[current].src;
+    video.load();
+
+    const handleLoadedData = () => {
+      setIsLoaded(true); // Fade in once buffered
+      video.play().catch(() => {
+        // Autoplay might be blocked by browser until user interacts
+        console.log("Autoplay prevented, waiting for interaction.");
+      });
+    };
+
+    video.addEventListener('loadeddata', handleLoadedData);
+    
+    return () => {
+      video.removeEventListener('loadeddata', handleLoadedData);
+      video.pause();
+    };
+  }, [current, videos]);
+
+  // Touch handlers for mobile swipe
   const onTouchStart = (e) => {
     touchStartX.current = e.touches[0].clientX;
     touchStartY.current = e.touches[0].clientY;
   };
+  
   const onTouchEnd = (e) => {
     if (touchStartX.current === null) return;
     const dx = e.changedTouches[0].clientX - touchStartX.current;
     const dy = e.changedTouches[0].clientY - touchStartY.current;
-    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) dx < 0 ? next() : prev();
+    
+    // Only trigger if horizontal swipe is significant
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+      dx < 0 ? next() : prev();
+    }
     touchStartX.current = null;
   };
 
   return (
-    <div className="hm-video-wrap" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
-      {videos.map((v, i) => (
-        <div key={i} className={`hm-video-slide${i === current ? " active" : ""}`}>
-          <video
-            ref={el => videoRefs.current[i] = el}
-            src={v.src}
-            muted playsInline loop
-            preload={i === 0 ? "auto" : "metadata"}
-          />
-        </div>
-      ))}
+    <div 
+      className="hm-video-container" 
+      onTouchStart={onTouchStart} 
+      onTouchEnd={onTouchEnd}
+    >
+      {/* Single Video Element */}
+      <video
+        ref={videoRef}
+        className={`hm-video-element ${isLoaded ? 'loaded' : ''}`}
+        muted 
+        playsInline 
+        loop
+        preload="metadata"
+      />
 
+      {/* Controls */}
       <button className="hm-carousel-btn hm-carousel-prev" onClick={prev} aria-label="Previous video">
         <ChevronLeft size={22} />
       </button>
@@ -669,11 +708,12 @@ function VideoCarousel({ videos, duration = 10000 }) {
         <ChevronRight size={22} />
       </button>
 
+      {/* Dots */}
       <div className="hm-carousel-dots">
         {videos.map((_, i) => (
           <button
             key={i}
-            className={`hm-carousel-dot${i === current ? " active" : ""}`}
+            className={`hm-carousel-dot ${i === current ? " active" : ""}`}
             onClick={() => goTo(i)}
             aria-label={`Go to video ${i + 1}`}
           />

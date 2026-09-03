@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import PageWrapper from "../components/PageWrapper";
 import { useEffect, useState } from "react";
 import { useDelayedMount } from "../utils/hooks";
-import { Zap, Shield, Wrench, Droplets, Hammer, Paintbrush, X, ArrowRight, MessageCircle } from "lucide-react";
+import { Zap, Shield, Wrench, Droplets, Hammer, Paintbrush, X, ArrowRight, MessageCircle, User, CheckCircle } from "lucide-react";
 import { Helmet } from "react-helmet-async";
 
 const CSS = `
@@ -92,7 +92,7 @@ const CSS = `
 .st-enter-btn:hover { transform: translateY(-4px); background: var(--orange); }
 
 /* ══════════════════════════════════════
-   FILTER BAR (NEW!)
+   FILTER BAR
 ══════════════════════════════════════ */
 .st-filter-bar {
   display: flex;
@@ -160,8 +160,7 @@ const CSS = `
   width: 100px; height: 100px; border-radius: 50%;
   background: linear-gradient(135deg, var(--navy-light), var(--navy));
   margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;
-  color: var(--white); font-family: var(--fh); font-size: 32px; font-weight: 800;
-  border: 4px solid var(--white); box-shadow: 0 8px 20px rgba(15,23,42,.2); position: relative;
+  color: var(--white); border: 4px solid var(--white); box-shadow: 0 8px 20px rgba(15,23,42,.2); position: relative;
 }
 .st-avatar-icon { position: absolute; bottom: -5px; right: -5px; width: 36px; height: 36px; border-radius: 50%; background: var(--orange); color: var(--white); display: flex; align-items: center; justify-content: center; border: 3px solid var(--white); }
 
@@ -179,7 +178,7 @@ const CSS = `
 .st-modal-header { background: linear-gradient(135deg, var(--navy), var(--navy-light)); padding: 40px 32px; text-align: center; position: relative; }
 .st-modal-close { position: absolute; top: 20px; right: 20px; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,.1); border: none; display: flex; align-items: center; justify-content: center; color: var(--white); cursor: pointer; transition: background .2s; }
 .st-modal-close:hover { background: rgba(255,255,255,.2); }
-.st-modal-avatar { width: 120px; height: 120px; border-radius: 50%; background: var(--orange); color: var(--white); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-family: var(--fh); font-size: 40px; font-weight: 900; border: 6px solid var(--white); box-shadow: 0 10px 30px rgba(0,0,0,.3); }
+.st-modal-avatar { width: 120px; height: 120px; border-radius: 50%; background: var(--orange); color: var(--white); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; border: 6px solid var(--white); box-shadow: 0 10px 30px rgba(0,0,0,.3); }
 .st-modal-name { font-family: var(--fh); font-size: 28px; font-weight: 900; color: var(--white); margin-bottom: 8px; }
 .st-modal-trade { font-family: var(--fb); font-size: 16px; font-weight: 600; color: var(--orange-hi); }
 
@@ -220,23 +219,15 @@ const CSS = `
   .st-header-title { font-size: 36px; }
   .st-header-sub { font-size: 16px; }
 
-  /* Mobile Filter Bar - Horizontal Scroll */
   .st-filter-bar { 
-    gap: 8px; 
-    justify-content: flex-start; 
-    overflow-x: auto; 
-    flex-wrap: nowrap; 
-    padding-bottom: 12px; 
-    margin-left: -22px; 
-    margin-right: -22px; 
-    padding-left: 22px; 
-    padding-right: 22px; 
+    gap: 8px; justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; 
+    padding-bottom: 12px; margin-left: -22px; margin-right: -22px; padding-left: 22px; padding-right: 22px; 
   }
   .st-filter-pill { padding: 8px 18px; font-size: 13px; }
   
   .st-grid { grid-template-columns: 1fr; gap: 16px; }
   .st-card { padding: 24px 20px; }
-  .st-avatar { width: 80px; height: 80px; font-size: 28px; }
+  .st-avatar { width: 80px; height: 80px; }
   .st-avatar-icon { width: 30px; height: 30px; }
   .st-card-name { font-size: 18px; }
   
@@ -246,7 +237,7 @@ const CSS = `
   
   .st-modal { max-height: 95vh; border-radius: 24px; }
   .st-modal-header { padding: 32px 24px; }
-  .st-modal-avatar { width: 100px; height: 100px; font-size: 32px; }
+  .st-modal-avatar { width: 100px; height: 100px; }
   .st-modal-name { font-size: 24px; }
   .st-modal-body { padding: 24px; }
 }
@@ -278,43 +269,43 @@ function StyleTag() {
 
 const STAFFING_WA = "233542128342"; 
 
-// Notice the new 'category' field added to each worker
-const WORKERS = [
+// Changed from specific people to ROLES/TRADES
+const ROLES = [
   {
-    id: 1, category: "Electrical", name: "Kwame Mensah", trade: "Master Electrician", exp: "12 Years Experience",
-    initials: "KM", icon: <Zap size={18} />,
-    desc: "Kwame handles all types of electrical work. From fixing a simple socket to wiring a whole building, he is safe, fast, and reliable.",
-    skills: ["House Wiring", "Fault Finding", "Panel Upgrades", "Emergency Repairs"]
+    id: 1, category: "Electrical", name: "Master Electricians", trade: "Electrical & Power", exp: "Vetted & Insured",
+    icon: <Zap size={18} />,
+    desc: "We supply fully trained, safety-certified electricians for residential and commercial projects. From simple socket repairs to full building wiring, our team handles it all with precision and care.",
+    skills: ["House Wiring", "Fault Finding", "Panel Upgrades", "Emergency Repairs", "Safety Certified"]
   },
   {
-    id: 2, category: "Security", name: "Samuel Osei", trade: "CCTV & Security", exp: "8 Years Experience",
-    initials: "SO", icon: <Shield size={18} />,
-    desc: "Samuel will install and set up your security cameras and alarms. He makes sure you can watch your home or shop from your phone.",
-    skills: ["CCTV Install", "Smart Locks", "Alarm Systems", "Remote Viewing"]
+    id: 2, category: "Security", name: "Security Installers", trade: "CCTV & Access Control", exp: "Vetted & Insured",
+    icon: <Shield size={18} />,
+    desc: "Our security specialists will assess your property and install top-tier CCTV cameras, smart locks, and alarm systems. We ensure everything is configured so you can monitor your space remotely.",
+    skills: ["CCTV Installation", "Smart Locks", "Alarm Systems", "Remote Viewing Setup", "Site Assessment"]
   },
   {
-    id: 3, category: "Plumbing", name: "Emmanuel Asante", trade: "Senior Plumber", exp: "15 Years Experience",
-    initials: "EA", icon: <Droplets size={18} />,
-    desc: "Emmanuel fixes leaks, installs pipes, and sets up water tanks. He does clean work and leaves your place tidy.",
-    skills: ["Pipe Fitting", "Leak Detection", "Tank Install", "Bathroom Fittings"]
+    id: 3, category: "Plumbing", name: "Senior Plumbers", trade: "Water & Pipe Systems", exp: "Vetted & Insured",
+    icon: <Droplets size={18} />,
+    desc: "Our plumbing experts handle everything from leak detection and pipe fitting to poly-tank installations and bathroom fittings. They do clean, professional work and leave your space tidy.",
+    skills: ["Pipe Fitting", "Leak Detection", "Tank Installation", "Bathroom Fittings", "Drain Cleaning"]
   },
   {
-    id: 4, category: "Maintenance", name: "Michael Tetteh", trade: "Handyman & Carpenter", exp: "9 Years Experience",
-    initials: "MT", icon: <Hammer size={18} />,
-    desc: "Michael is your go-to guy for fixing things around the house. He builds shelves, fixes doors, and handles general repairs.",
-    skills: ["Furniture Assembly", "Door Repair", "Shelving", "General Fixes"]
+    id: 4, category: "Maintenance", name: "Handymen & Carpenters", trade: "General Maintenance", exp: "Vetted & Insured",
+    icon: <Hammer size={18} />,
+    desc: "Need something fixed or built? Our handymen are your go-to experts for furniture assembly, minor carpentry, door repairs, shelving, and general household or office fixes.",
+    skills: ["Furniture Assembly", "Door Repair", "Shelving & Carpentry", "General Fixes", "Office Maintenance"]
   },
   {
-    id: 5, category: "Maintenance", name: "Daniel Kofi", trade: "Painter & Decorator", exp: "7 Years Experience",
-    initials: "DK", icon: <Paintbrush size={18} />,
-    desc: "Daniel will paint your house inside and out. He is very neat and helps you pick the right colors to make your place look new.",
-    skills: ["Interior Painting", "Exterior Painting", "Wall Finishing", "Color Advice"]
+    id: 5, category: "Maintenance", name: "Painters & Decorators", trade: "Painting & Finishing", exp: "Vetted & Insured",
+    icon: <Paintbrush size={18} />,
+    desc: "Our painting crews handle interior and exterior painting, wall finishing, and decorative treatments. They are neat, efficient, and can even help you choose the right colors to refresh your space.",
+    skills: ["Interior Painting", "Exterior Painting", "Wall Finishing", "Color Consultation", "Surface Prep"]
   },
   {
-    id: 6, category: "Cleaning", name: "Comfort Anokye", trade: "Head of Cleaning Staff", exp: "10 Years Experience",
-    initials: "CA", icon: <Shield size={18} />,
-    desc: "Comfort manages our team of home cleaners. If you need a reliable cleaner for your house or office, she will find the perfect person for you.",
-    skills: ["Home Cleaning", "Office Staff", "Nannies", "Staff Vetting"]
+    id: 6, category: "Cleaning", name: "Cleaning Supervisors", trade: "Domestic & Office Staff", exp: "Vetted & Insured",
+    icon: <Shield size={18} />,
+    desc: "We provide thoroughly vetted, reliable cleaning staff for homes and offices. Our supervisors manage the team to ensure your space is cleaned to the highest standards, consistently.",
+    skills: ["Home Cleaning", "Office Staffing", "Deep Cleaning", "Staff Vetting", "Quality Supervision"]
   }
 ];
 
@@ -322,13 +313,12 @@ const CATEGORIES = ["All", "Electrical", "Security", "Plumbing", "Maintenance", 
 
 export default function Staffing() {
   const [introOpen, setIntroOpen] = useState(true);
-  const [selectedWorker, setSelectedWorker] = useState(null);
+  const [selectedRole, setSelectedRole] = useState(null);
   const [activeFilter, setActiveFilter] = useState("All");
 
-  // Filter the workers based on the active category
-  const filteredWorkers = activeFilter === "All" 
-    ? WORKERS 
-    : WORKERS.filter(w => w.category === activeFilter);
+  const filteredRoles = activeFilter === "All" 
+    ? ROLES 
+    : ROLES.filter(r => r.category === activeFilter);
 
   const closeIntro = () => {
     const overlay = document.querySelector('.st-intro');
@@ -336,8 +326,8 @@ export default function Staffing() {
     setTimeout(() => setIntroOpen(false), 400);
   };
 
-  const getWaLink = (worker) => {
-    const text = `Hello Chapman Prestige, I saw ${worker.name} (${worker.trade}) on your Expert Network page. I would like to hire them. Please tell me the next steps.`;
+  const getWaLink = (role) => {
+    const text = `Hello Chapman Prestige, I am interested in hiring ${role.name} (${role.trade}) from your Expert Network. Please let me know the next steps and pricing.`;
     return `https://wa.me/${STAFFING_WA}?text=${encodeURIComponent(text)}`;
   };
 
@@ -355,7 +345,6 @@ export default function Staffing() {
       </Helmet>
 
       <div className="st">
-        {/* Glassmorphic Full-Screen Intro */}
         {introOpen && (
           <div className="st-intro">
             <div className="st-intro-box">
@@ -367,11 +356,11 @@ export default function Staffing() {
               </div>
               <h2 className="st-intro-title">Need a <span>Trusted Expert?</span></h2>
               <p className="st-intro-desc">
-                Looking for a reliable electrician, plumber, or cleaner? We have a network of skilled workers ready to help. Just pick a worker, read what they do, and chat with us to hire them.
+                Looking for a reliable electrician, plumber, or cleaner? We have a network of skilled workers ready to help. Just pick a trade, read what they do, and chat with us to hire them.
               </p>
               <div className="st-steps">
-                <div className="st-step"><div className="st-step-num">1</div> Pick a Worker</div>
-                <div className="st-step"><div className="st-step-num">2</div> Read Profile</div>
+                <div className="st-step"><div className="st-step-num">1</div> Pick a Trade</div>
+                <div className="st-step"><div className="st-step-num">2</div> Read Details</div>
                 <div className="st-step"><div className="st-step-num">3</div> Chat & Hire</div>
               </div>
               <button className="st-enter-btn" onClick={closeIntro}>
@@ -381,7 +370,6 @@ export default function Staffing() {
           </div>
         )}
 
-        {/* Main Page */}
         <div className="st-wrap">
           <header className="st-header">
             <div className="st-header-eyebrow">Vetted & Trusted</div>
@@ -389,11 +377,10 @@ export default function Staffing() {
               The <span>Expert Network</span>
             </h1>
             <p className="st-header-sub">
-              Don't risk hiring strangers. We supply and manage skilled workers for your home or business. Click on a profile to see what they do.
+              Don't risk hiring strangers. We supply and manage skilled workers for your home or business. Click on a trade to see what we offer.
             </p>
           </header>
 
-          {/*  NEW FILTER BAR */}
           <div className="st-filter-bar">
             {CATEGORIES.map(cat => (
               <button 
@@ -406,23 +393,21 @@ export default function Staffing() {
             ))}
           </div>
 
-          {/* Worker Grid (Now Filtered) */}
           <div className="st-grid">
-            {filteredWorkers.map(worker => (
-              <div key={worker.id} className="st-card" onClick={() => setSelectedWorker(worker)}>
+            {filteredRoles.map(role => (
+              <div key={role.id} className="st-card" onClick={() => setSelectedRole(role)}>
                 <div className="st-avatar">
-                  {worker.initials}
-                  <div className="st-avatar-icon">{worker.icon}</div>
+                  <User size={48} strokeWidth={1.5} />
+                  <div className="st-avatar-icon">{role.icon}</div>
                 </div>
-                <div className="st-card-name">{worker.name}</div>
-                <div className="st-card-trade">{worker.trade}</div>
-                <div className="st-card-exp">{worker.exp}</div>
-                <div className="st-card-btn">View Profile</div>
+                <div className="st-card-name">{role.name}</div>
+                <div className="st-card-trade">{role.trade}</div>
+                <div className="st-card-exp">{role.exp}</div>
+                <div className="st-card-btn">View Details</div>
               </div>
             ))}
           </div>
 
-          {/* Petition Section */}
           <section className="st-petition">
             <h2 className="st-petition-title">Need Someone Not Listed?</h2>
             <p className="st-petition-desc">
@@ -434,29 +419,35 @@ export default function Staffing() {
           </section>
         </div>
 
-        {/* Profile Modal */}
-        {selectedWorker && (
-          <div className="st-modal-overlay" onClick={() => setSelectedWorker(null)}>
+        {selectedRole && (
+          <div className="st-modal-overlay" onClick={() => setSelectedRole(null)}>
             <div className="st-modal" onClick={(e) => e.stopPropagation()}>
               <div className="st-modal-header">
-                <button className="st-modal-close" onClick={() => setSelectedWorker(null)}>
+                <button className="st-modal-close" onClick={() => setSelectedRole(null)}>
                   <X size={20} />
                 </button>
-                <div className="st-modal-avatar">{selectedWorker.initials}</div>
-                <div className="st-modal-name">{selectedWorker.name}</div>
-                <div className="st-modal-trade">{selectedWorker.trade}</div>
+                <div className="st-modal-avatar">
+                  <User size={64} strokeWidth={1.5} />
+                </div>
+                <div className="st-modal-name">{selectedRole.name}</div>
+                <div className="st-modal-trade">{selectedRole.trade}</div>
               </div>
               <div className="st-modal-body">
-                <div className="st-modal-section-title">About {selectedWorker.name.split(' ')[0]}</div>
-                <p className="st-modal-desc">{selectedWorker.desc}</p>
-                <div className="st-modal-section-title">What They Do</div>
+                <div className="st-modal-section-title">What to Expect</div>
+                <p className="st-modal-desc">{selectedRole.desc}</p>
+                
+                <div className="st-modal-section-title">Skills & Services</div>
                 <div className="st-modal-skills">
-                  {selectedWorker.skills.map((skill, i) => (
-                    <span key={i} className="st-skill-tag">{skill}</span>
+                  {selectedRole.skills.map((skill, i) => (
+                    <span key={i} className="st-skill-tag">
+                      <CheckCircle size={12} style={{ marginRight: 4, verticalAlign: 'middle' }} />
+                      {skill}
+                    </span>
                   ))}
                 </div>
-                <a href={getWaLink(selectedWorker)} target="_blank" rel="noreferrer" className="st-modal-wa-btn">
-                  <MessageCircle size={22} /> Chat to Hire {selectedWorker.name.split(' ')[0]}
+
+                <a href={getWaLink(selectedRole)} target="_blank" rel="noreferrer" className="st-modal-wa-btn">
+                  <MessageCircle size={22} /> Request {selectedRole.name}
                 </a>
               </div>
             </div>
